@@ -1,0 +1,53 @@
+#accountsPage.appPage
+	#box1.box
+		#box1-header.header
+		#box1-content.content
+			.button-container
+				a(href = "#")
+					img#addAccount.button(src = "img/buttons/AddPersonPlaceHolder.png")
+					label(for = "addAccount") Add
+			.button-container
+				a(href = "#")
+					img#groupChat.button(src = "img/buttons/ChatPlaceholder.png")
+					label(for = "groupChat") Group Chat
+			.button-container
+				a(href = "#")
+					img#emailGroup.button(src = "img/buttons/48_email.png")
+					label(for = "emailGroup") Email Group
+	input(ng-model = "query", placeholder= "Search") 
+	select(ng-model = "orderProp")
+		option(value = "uid") UID
+		option(value = "firstName") First Name
+		option(value = "lastName") LastName
+	#accountsBox
+		#accountsBox-header.header
+			p#name Last Name, First Name
+			p#status Status
+			p#activity Recent Acitivity
+			p#profile Profile
+		#accountDetails
+			
+			.accountInfo
+				h3.name {{selected.firstName}} {{selected.lastName}}
+				p.login Last Login: {{selected.lastLogin}}
+				p.join Join Date: {{selected.joinDate}}
+				p.roles Roles:
+			.profilePicture
+				img(ng-src="{{selected.picture}}")
+			#chatBox
+			textArea#messageBox
+			.profileMenu
+				img#edit.button(src = "img/buttons/24_edit.png", ng-click="editUser()")
+				img#chat.button(src = "img/buttons/ChatPlaceholder.png")
+				img#email.button(src = "img/buttons/24_email.png")
+				img#archive.button(src = "img/buttons/24_archive.png")
+				img#close.button(src = "img/buttons/24_close.png")
+
+		#accountList
+			div.accountView(id = "{{user.uid}}"
+			ng-repeat="user in users | filter: query | orderBy: orderProp" 
+			ng-click = "selectUser(user)")
+				span.account-checkbox-container
+					input.account-checkbox(type = "checkbox")
+				span.account-name-container
+					{{user.lastName}}, {{user.firstName}}
